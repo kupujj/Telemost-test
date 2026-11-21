@@ -3,39 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Telemost Test</title>
+<title>Telemost Simulator</title>
 <style>
 body {
-  background: #111;
-  color: white;
-  font-family: Arial;
-  padding: 20px;
+  background:#151515;color:white;
+  font-family:Arial;padding:20px;
 }
-button, input {
-  padding: 12px;
-  margin: 5px;
-  border-radius: 8px;
+button,input {
+  padding:12px;margin:5px;border-radius:8px;
 }
+button {background:#19c96b;border:0}
+input {background:#292929;color:white;border:1px solid #555}
+li {padding:10px;background:#292929;margin:7px;border-radius:8px}
 </style>
 </head>
 <body>
-<h2>Telemost Test Panel</h2>
-<p>Локальная панель тестирования</p>
-<input id="count" type="number" min="1" max="20" value="10">
-<button onclick="generate()">Создать ники</button>
-<ul id="users"></ul>
+<h2>Telemost Simulator</h2>
+<p>Виртуальные участники: <b id="count">0</b></p>
+<input id="nickname" placeholder="Введите ник">
+<button onclick="add()">Добавить</button>
+<button onclick="random()">Рандомный ник</button>
+<ul id="list"></ul>
 <script>
-function generate() {
-  const list = document.getElementById('users');
-  list.innerHTML = '';
-  const count = Math.min(20, Math.max(1,
-    Number(document.getElementById('count').value) || 1));
-  for (let i = 0; i < count; i++) {
-    const li = document.createElement('li');
-    li.textContent = 'Guest_' +
-      Math.floor(1000 + Math.random() * 9000);
+let names = [];
+function render() {
+  count.textContent = names.length;
+  list.innerHTML = "";
+  names.forEach(n => {
+    let li = document.createElement("li");
+    li.textContent = n;
     list.appendChild(li);
-  }
+  });
+}
+function add() {
+  let n = nickname.value.trim();
+  if (!n) return;
+  names.push(n);
+  nickname.value = "";
+  render();
+}
+function random() {
+  names.push("User_" + Math.floor(1000 + Math.random()*900000));
+  render();
 }
 </script>
 </body>

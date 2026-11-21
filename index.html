@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Telemost Test</title>
+<style>
+body {
+  background: #111;
+  color: white;
+  font-family: Arial;
+  padding: 20px;
+}
+button, input {
+  padding: 12px;
+  margin: 5px;
+  border-radius: 8px;
+}
+</style>
+</head>
+<body>
+<h2>Telemost Test Panel</h2>
+<p>Локальная панель тестирования</p>
+<input id="count" type="number" min="1" max="20" value="10">
+<button onclick="generate()">Создать ники</button>
+<ul id="users"></ul>
+<script>
+function generate() {
+  const list = document.getElementById('users');
+  list.innerHTML = '';
+  const count = Math.min(20, Math.max(1,
+    Number(document.getElementById('count').value) || 1));
+  for (let i = 0; i < count; i++) {
+    const li = document.createElement('li');
+    li.textContent = 'Guest_' +
+      Math.floor(1000 + Math.random() * 9000);
+    list.appendChild(li);
+  }
+}
+</script>
+</body>
+</html>
